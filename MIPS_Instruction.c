@@ -745,7 +745,7 @@ void setBits_easy(enum InstructionPartType first_type, ...) {
 	enum InstructionPartType next_type = first_type;
 
 	for (;;) {
-		if (next_type == PART_END) {
+		if (pos == 0) {
 			va_end(va);
 			BIN32 = instruction;
 			return;

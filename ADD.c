@@ -87,8 +87,7 @@ void add_reg_assm(void) {
 		PART_REGISTER, PARAM2.value,
 		PART_REGISTER, PARAM3.value,
 		PART_REGISTER, PARAM1.value,
-		PART_LITERAL, "00000100000",
-		PART_END
+		PART_LITERAL, "00000100000"
 	);
 
 	// tell the system the encoding is done

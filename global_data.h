@@ -89,8 +89,7 @@ enum InstructionPartType {
 	PART_IMMEDIATE,
 	PART_OFFSET,
 	PART_CODE,
-	PART_TARGET,
-	PART_END
+	PART_TARGET
 };
 
 /*----------------------------\
