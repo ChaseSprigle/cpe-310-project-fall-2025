@@ -264,4 +264,7 @@ char* num2bin(char* str, uint32_t num, uint32_t size);
 */
 int startswith(char* line, char* prefix);
 
+int checkParams(enum Param_Type type1, enum Param_Type type2,
+		enum Param_Type type3, enum Param_Type type4);
+
 #endif

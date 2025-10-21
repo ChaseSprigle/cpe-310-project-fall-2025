@@ -18,70 +18,9 @@ void add_reg_assm(void) {
 		return;
 	}
 
-	/*
-		Checking the type of parameters
-	*/
-
-	// Generally the first parameter should always be a register
-	if (PARAM1.type != REGISTER) {
-		state = MISSING_REG;
+	if (checkParams(REGISTER, REGISTER, REGISTER, EMPTY) == EXIT_FAILURE)
 		return;
-	}
 
-	// This is AND register, so param 2 needs to be a register
-	if (PARAM2.type != REGISTER) {
-		state = MISSING_REG;
-		return;
-	}
-
-	// This is AND register, so param 3 needs to be a register
-	if (PARAM3.type != REGISTER) {
-		state = MISSING_REG;
-		return;
-	}
-
-	/*
-		Checking the value of parameters
-	*/
-
-	// Rd should be 31 or less
-	if (PARAM1.value > 31) {
-		state = INVALID_REG;
-		return;
-	}
-
-	// Rs should be 31 or less
-	if (PARAM2.value > 31) {
-		state = INVALID_REG;
-		return;
-	}
-
-	// Rt should be 31 or less
-	if (PARAM3.value > 31) {
-		state = INVALID_REG;
-		return;
-	}
-
-	/*
-		Putting the binary together
-	*/
-/*
-	// Set the opcode
-	setBits_num(31, 0, 6);
-
-	// Set the funct 
-	setBits_str(5, "100000");
-
-	// set Rd
-	setBits_num(15, PARAM1.value, 5);
-
-	// set Rs
-	setBits_num(25, PARAM2.value, 5);
-
-	// set Rt
-	setBits_num(20, PARAM3.value, 5);
-*/
-	
 	setBits_easy(
 		PART_LITERAL, "000000",
 		PART_REGISTER, PARAM2.value,
