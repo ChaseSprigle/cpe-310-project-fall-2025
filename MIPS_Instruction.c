@@ -760,7 +760,7 @@ void setBits_easy(enum InstructionPartType first_type, ...) {
 			uint32_t reg = va_arg(va, uint32_t);
 			instruction |= reg << (pos - 5);
 			pos -= 5;
-		} else if (next_type == PART_IMMEDIATE || next_type == PART_OFFSET) {
+		} else if (next_type == PART_IMMEDIATE) {
 			uint32_t imm = va_arg(va, uint32_t);
 			instruction |= imm << (pos - 16);
 			pos -= 16;
@@ -947,4 +947,39 @@ int startswith(char* line, char* prefix) {
 		}
 	}
 	return 1;
+}
+
+int checkParams(enum Param_Type type1, enum Param_Type type2,
+		enum Param_Type type3, enum Param_Type type4) {
+	enum Param_Type intended_types[4] = { type1, type2, type3, type4 };
+	enum Param_Type given_types[4] = { PARAM1.type, PARAM2.type,
+		PARAM3.type, PARAM4.type };
+	uint32_t given_values[4] = { PARAM1.value, PARAM2.value, PARAM3.value,
+		PARAM4.value };
+
+	for (size_t i = 0; i < 4; i++) {
+		if (intended_types[i] != given_types[i]) {
+			if (intended_types[i] == REGISTER) {
+				state = MISSING_REG;
+				return EXIT_FAILURE;
+			}
+			if (intended_types[i] == IMMEDIATE) {
+				state = INVALID_PARAM;
+				return EXIT_FAILURE;
+			}
+		}
+	}
+
+	for (size_t i = 0; i < 4; i++) {
+		if (intended_types[i] == REGISTER && given_values[i] > 31) {
+			state = INVALID_REG;
+			return EXIT_FAILURE;
+		}
+		if (intended_types[i] == IMMEDIATE && given_values[i] > 0xFFFF) {
+			state = INVALID_IMMED;
+			return EXIT_FAILURE;
+		}
+	}
+
+	return EXIT_SUCCESS;
 }
